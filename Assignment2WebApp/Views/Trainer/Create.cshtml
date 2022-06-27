@@ -1,0 +1,47 @@
+﻿@model Entities.Trainer
+
+<div>
+    <h1>
+        <u>
+            <strong>Create Trainer</strong>
+        </u>
+    </h1>
+</div>
+<br />
+
+<div>
+    <form method="post">
+
+        <div class="form-group">
+            <label for="firstNameID">First Name</label>
+            <input id="firstNameID" class="form-control" type="text" name="firstName" value="@(Model?.FirstName)" placeholder="Give first name"/>
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class="text-danger"})
+        </div>
+
+        <div class="form-group">
+            <label for="lastNameId">Last Name</label>
+            <input id="lastNameId" class="form-control" type="text" name="lastName" value="@(Model?.LastName)" placeholder="Give last name"/>
+            @Html.ValidationMessageFor(m => m.LastName, "", new { @class="text-danger"})
+        </div>
+
+        <div class="form-group">
+            <label for="dateHiredId">Date Hired</label>
+            <input id="dateHiredId" class="form-control" type="date" name="dateHired" value="@(Model?.DateHired)" placeholder="Select hire date"/>
+            @Html.ValidationMessageFor(m => m.DateHired, "", new { @class="text-danger"})
+        </div>
+
+        <div class="form-group">
+            <label for="photoUrlId">Photo URL</label>
+            <input id="photoUrlId" class="form-control" type="url" name="photoUrl" value="@(Model?.PhotoUrl)" placeholder="Give photo URL"/>
+            @Html.ValidationMessageFor(m => m.PhotoUrl, "", new { @class="text-danger"})
+        </div>
+
+        <input class="btn btn-success" type="submit"  value="Create" />
+        <input class="btn btn-danger" type="reset"  value="Clear" />
+    </form>
+</div>
+<br />
+
+<div>
+    <a style="width:100px" class="btn btn-primary" href="/Trainer/Index">Back</a>
+</div>

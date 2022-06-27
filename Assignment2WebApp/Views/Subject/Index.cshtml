@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Entities.Subject>
+
+
+<div>
+    <h1>
+        <u>Subjects</u>
+    </h1>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var subject in Model)
+            {
+                <tr>
+                    <td>@subject.SubjectId</td>
+                    <td>@subject.Title</td>
+                    <td>
+                        <a class="btn btn-success" href="/Subject/Edit?id=@subject.SubjectId">Edit</a>
+                        <a class="btn btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a class="btn btn-primary" href="/Subject/Create">Create Subject</a>
+</div>
