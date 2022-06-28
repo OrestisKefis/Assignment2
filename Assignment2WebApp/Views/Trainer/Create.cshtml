@@ -1,4 +1,5 @@
 ﻿@model Entities.Trainer
+@using Entities
 
 <div>
     <h1>
@@ -11,6 +12,8 @@
 
 <div>
     <form method="post">
+
+        @Html.AntiForgeryToken()
 
         <div class="form-group">
             <label for="firstNameID">First Name</label>
@@ -34,6 +37,17 @@
             <label for="photoUrlId">Photo URL</label>
             <input id="photoUrlId" class="form-control" type="url" name="photoUrl" value="@(Model?.PhotoUrl)" placeholder="Give photo URL"/>
             @Html.ValidationMessageFor(m => m.PhotoUrl, "", new { @class="text-danger"})
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subjets</label>
+            <select name="subjectId" id="subject" class="form-control">
+                <option selected disabled>No subject</option>
+                @foreach (var subject in ViewBag.subjects as List<Subject>)
+                {
+                    <option value="@subject.SubjectId">@subject.Title</option>
+                }
+            </select>
         </div>
 
         <input class="btn btn-success" type="submit"  value="Create" />

@@ -2,13 +2,13 @@
 
 
 <style>
-    td img{
-        width:100px;
-        height:170px;
+    td img {
+        width: 100px;
+        height: 170px;
     }
 
-    tr:hover{
-        background-color:lightgray;
+    tr:hover {
+        background-color: lightgray;
     }
 </style>
 
@@ -17,6 +17,15 @@
         <u>Trainers</u>
     </h1>
 </div>
+
+
+@if (TempData["trainerMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> @TempData["trainerMessage"]
+    </div>
+}
 
 <div>
     <table class="table">
@@ -48,7 +57,10 @@
                     <td>
                         <a class="btn btn-primary" href="/Trainer/Details?id=@trainer.TrainerId">Details</a>
                         <a class="btn btn-success" href="/Trainer/Edit?id=@trainer.TrainerId">Edit</a>
-                        <a class="btn btn-danger" href="#">Delete</a>
+                        <form method="post" action="/Trainer/Delete">
+                            <input type="hidden" name="id" value="@(trainer?.TrainerId)" />
+                            <input class="btn btn-danger" type="submit" name="name" value="Delete" />
+                        </form>
                     </td>
                 </tr>
             }

@@ -21,9 +21,8 @@ namespace RepositoryServices.Persistence
         }
         
 
-        public void Delete(int? id)
+        public void Delete(T entity)
         {
-            var entity = table.Find(id);
             db.Entry(entity).State = EntityState.Deleted;
         }
 

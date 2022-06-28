@@ -12,7 +12,7 @@ namespace RepositoryServices.Core
         T GetById(object id);
         void Insert(T entity);
         void Update(T enity);
-        void Delete(int? id);
+        void Delete(T entity);
         void Save();
     }
 }

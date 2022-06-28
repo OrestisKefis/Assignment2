@@ -11,13 +11,15 @@
     <!--navBar-->
     @Html.Partial("~/Views/Shared/_NavBar.cshtml")
     <!--end navBar-->
-    <!--footer-->
+    
     <div class="container body-content">
         @RenderBody()
         <hr />
+        <!--footer-->
         @Html.Partial("~/Views/Shared/_Footer.cshtml")
+        <!--end footer-->
     </div>
-    <!--end footer-->
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

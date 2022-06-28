@@ -26,7 +26,7 @@ namespace RepositoryServices.Persistence
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            db.Dispose();
         }
     }
 }

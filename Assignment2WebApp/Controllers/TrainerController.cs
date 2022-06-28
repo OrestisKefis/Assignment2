@@ -46,31 +46,65 @@ namespace Assignment2WebApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            GetSubjectsToViewBag();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Trainer trainer)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Trainer trainer, List<int> subjectsIds)
         {
             if (ModelState.IsValid)
             {
                 unit.Trainers.Insert(trainer);
                 unit.Trainers.Save();
-                ShowAlert(trainer.TrainerId);
+                ShowAlert($"Trainer with id {trainer.TrainerId} has been successfuly created");
                 return RedirectToAction("Index");
             }
 
+            GetSubjectsToViewBag();
             return View(trainer);
         }
 
-        public ActionResult Delete()
+        [HttpPost]
+        public ActionResult Delete(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var trainer = db.Trainers.Find(id);
+
+            if (trainer == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            unit.Trainers.Delete(trainer);
+            unit.Trainers.Save();
+            ShowAlert($"Trainer with id {trainer.TrainerId} has been successfully been deleted");
+            return RedirectToAction("Index");
         }
 
-        public void ShowAlert(int id)
+        public void GetSubjectsToViewBag()
         {
-            TempData["message"] = $"Trainer with id {id} has been successfuly created";
+            var subjects = unit.Subjects.GetAll();
+            ViewBag.subjects = subjects;
+        }
+
+        public void ShowAlert(string message)
+        {
+            TempData["trainerMessage"] = message;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                unit.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

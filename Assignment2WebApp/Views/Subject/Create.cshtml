@@ -1,7 +1,31 @@
-﻿
-@{
-    ViewBag.Title = "Create";
-}
+﻿@model Entities.Subject
+@using Entities
 
-<h2>Subject Create is working</h2>
 
+<div>
+    <h1>
+        <u>
+            <strong>Create Subject</strong>
+        </u>
+    </h1>
+</div>
+
+<div>
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="titleId">Title</label>
+            <input id="titleId" class="form-control" type="text" name="title" value="@(Model?.Title)" placeholder="Give title" />
+            @Html.ValidationMessageFor(s => s.Title, "", new { @class = "text-danger" })
+        </div>
+
+        <input class="btn btn-success" type="submit" value="Create" />
+        <input class="btn btn-danger" type="reset" value="Clear" />
+    </form>
+</div>
+<br />
+
+<div>
+    <a class="btn btn-primary" style="width:100px" href="/Subject/index">Back</a>
+</div>
