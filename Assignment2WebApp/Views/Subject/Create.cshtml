@@ -20,11 +20,12 @@
             @Html.ValidationMessageFor(s => s.Title, "", new { @class = "text-danger" })
         </div>
 
-        <input class="btn btn-success" type="submit" value="Create" />
-        <input class="btn btn-danger" type="reset" value="Clear" />
+        <div class="form-group">
+            <input class="btn btn-success" type="submit" value="Create" />
+            <input class="btn btn-danger" type="reset" value="Clear" />
+        </div>
     </form>
 </div>
-<br />
 
 <div>
     <a class="btn btn-primary" style="width:100px" href="/Subject/index">Back</a>
