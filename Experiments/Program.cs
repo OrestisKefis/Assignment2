@@ -18,28 +18,37 @@ namespace Experiments
 
             UnitOfWork unit = new UnitOfWork(db);
 
-            var trainers = unit.Trainers.GetAll();
 
-            //var objects = from trainer in trainers
-            //              select new
-            //              {
-            //                  onoma = trainer.FirstName,
-            //                  epitheto = trainer.LastName,
-            //                  mathima = new
-            //                  {
-            //                      titlos = trainer.Subject.Title
-            //                  }
-            //              };
+            var trainers = GetTrainersWithSubject(db);
 
-            //foreach (var trainer in objects)
-            //{
-            //    Console.WriteLine($"{trainer.onoma,-10}{trainer.epitheto,-10}{trainer.mathima.titlos}");
-            //}
+            //Console.WriteLine($"First Name: {trainer.FirstName}\nLast Name: {trainer.LastName} \nSubject: {trainer.Subject.Title}");
+            
+        }
 
-            foreach (var trainer in trainers)
+        public static IEnumerable<object> GetTrainersWithSubject( ApplicationDbContext db)
+        {
+            var trainers = db.Trainers
+                .Include(t => t.Subject)
+                .ToList();
+
+           var query = trainers
+                .Select(t => new
+                {
+                    onoma = t.FirstName,
+                    epitheto = t.LastName,
+                    mathima = new 
+                    {
+                        onoma = t.Subject.Title
+                    }
+
+                });
+
+            foreach (var i in query)
             {
-                Console.WriteLine(trainer.FirstName);
+                Console.WriteLine($"{i.onoma, -10}{i.epitheto, -10}{i.mathima.onoma}");
             }
+
+            return query;
         }
     }
 }

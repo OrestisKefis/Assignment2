@@ -10,5 +10,6 @@ namespace RepositoryServices.Core.Repositories
     public interface ITrainerRepository : IGenericRepository<Trainer>
     {
         IEnumerable<Trainer> GetAllWithSubject();
+        Trainer GetByIdWithSubject(object id);
     }
 }

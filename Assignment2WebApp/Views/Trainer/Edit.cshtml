@@ -1,7 +1,63 @@
-﻿
-@{
-    ViewBag.Title = "Edit";
-}
+﻿@model Entities.Trainer
+@using Entities
 
-<h2>Trainer Edit is working</h2>
+<div>
+    <h1>
+        <u>
+            <strong>Edit Trainer</strong>
+        </u>
+    </h1>
+</div>
+<br />
 
+<div>
+    <form method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="firstNameID">First Name</label>
+            <input id="firstNameID" class="form-control" type="text" name="firstName" value="@(Model?.FirstName)" placeholder="Give first name" />
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="lastNameId">Last Name</label>
+            <input id="lastNameId" class="form-control" type="text" name="lastName" value="@(Model?.LastName)" placeholder="Give last name" />
+            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="dateHiredId">Date Hired</label>
+            <input id="dateHiredId" class="form-control" type="date" name="dateHired" value="@(Model?.DateHired)" placeholder="Select hire date" />
+            @Html.ValidationMessageFor(m => m.DateHired, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="photoUrlId">Photo URL</label>
+            <input id="photoUrlId" class="form-control" type="url" name="photoUrl" value="@(Model?.PhotoUrl)" placeholder="Give photo URL" />
+            @Html.ValidationMessageFor(m => m.PhotoUrl, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subjets</label>
+            <select name="subjectId" id="subject" class="form-control">
+                <option selected disabled>No subject</option>
+                @foreach (var subject in ViewBag.subjects as List<Subject>)
+                {
+                    <option value="@subject.SubjectId" @(Model.SubjectId == subject.SubjectId ? "selected" : "")>@subject.Title</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" name="trainerId" value="@Model.TrainerId" />
+            <input class="btn btn-success" type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+<br />
+
+<div>
+    <a style="width:100px" class="btn btn-primary" href="/Trainer/Index">Back</a>
+</div>

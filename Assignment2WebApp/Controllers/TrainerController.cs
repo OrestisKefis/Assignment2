@@ -32,16 +32,47 @@ namespace Assignment2WebApp.Controllers
             return View(trainers);
         }
 
-        public ActionResult Details()
+        public ActionResult Details(int? id)
         {
-            return View();
+            var trainers = unit.Trainers.GetByIdWithSubject(id);
+            return View(trainers);
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id != null)
+            {
+                var trainer = unit
+                    .Trainers
+                    .GetByIdWithSubject(id);
+
+                if (trainer != null)
+                {
+                    GetSubjectsToViewBag();
+                    return View(trainer);
+                }
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Trainer trainer, List<int> subjects)
+        {
+            if (ModelState.IsValid)
+            {
+                unit.Trainers.Update(trainer);
+                unit.Trainers.Save();
+                return RedirectToAction("Index");
+            }
+
+            GetSubjectsToViewBag();
+            return View(trainer);
+        }
+
 
         [HttpGet]
         public ActionResult Create()

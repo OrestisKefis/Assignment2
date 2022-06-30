@@ -1,7 +1,37 @@
-﻿
-@{
-    ViewBag.Title = "Details";
-}
+﻿@model Entities.Trainer
 
-<h2>Trainer Details is working</h2>
+<div>
+    <h1>
+        <u>
+            <strong>Trainer Details</strong>
+        </u>
+    </h1>
+</div>
+<br />
 
+<div>
+    <span>
+        <img style="width:200px; height:300px" src="@Model.PhotoUrl" alt="Trainer Photo" />
+    </span>
+</div>
+<br />
+
+<div>
+    <strong>First Name:</strong>
+    <span>@Model.FirstName</span>
+</div>
+
+<div>
+    <strong>Last Name:</strong>
+    <span>@Model.LastName</span>
+</div>
+
+<div>
+    <strong>Date Hired:</strong>
+    <span>@Model.DateHired</span>
+</div>
+
+<div>
+    <strong>Subject:</strong>
+    <span>@(Model.Subject != null ? Model.Subject.Title : "No subjects assigned yet")</span>
+</div>

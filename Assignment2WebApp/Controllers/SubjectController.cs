@@ -32,9 +32,38 @@ namespace Assignment2WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id != null)
+            {
+                var subject = unit
+                    .Subjects
+                    .GetById(id);
+
+                if (subject != null)
+                {
+                    return View(subject);
+                }
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Subject subject)
+        {
+            if (ModelState.IsValid)
+            {
+                unit.Subjects.Update(subject);
+                unit.Subjects.Save();
+
+                ShowAlert($"Subject with id {subject.SubjectId} has been successfully updated");
+
+                return RedirectToAction("Index");
+            }
+
+            return View(subject);
         }
 
         [HttpGet]
@@ -74,6 +103,15 @@ namespace Assignment2WebApp.Controllers
         public void ShowAlert(string message)
         {
             TempData["subjectMessage"] = message;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

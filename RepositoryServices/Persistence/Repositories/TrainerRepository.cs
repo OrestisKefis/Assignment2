@@ -23,5 +23,12 @@ namespace RepositoryServices.Persistence.Repositories
                 .Include(t => t.Subject)
                 .ToList();
         }
+
+        public Trainer GetByIdWithSubject(object id)
+        {
+            return table
+               .Include(t => t.Subject)
+               .FirstOrDefault(t => t.TrainerId == (int)id);
+        }
     }
 }
