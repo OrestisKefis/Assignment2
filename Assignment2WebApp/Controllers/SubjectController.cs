@@ -24,11 +24,13 @@ namespace Assignment2WebApp.Controllers
         public ActionResult Index()
         {
             var subjects = unit.Subjects.GetAll();
-            if (subjects == null)
+            if (subjects != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(subjects);
             }
-            return View(subjects);
+
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
         }
 
         [HttpGet]
@@ -89,9 +91,33 @@ namespace Assignment2WebApp.Controllers
             return View(subject);
         }
 
-        public ActionResult Delete()
+        [HttpPost]
+        public ActionResult Delete(int? id)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                var subject = unit.Subjects.GetById(id);
+                var trainers = unit.Trainers.GetBySubjectId(id);  //Get all trainers where subjecId is equal to given id
+
+                if (trainers != null)  //Set subjectId FK to null so as to delete the subject afterwards
+                {
+                    foreach (var trainer in trainers)
+                    {
+                        unit.Trainers.SetSubjectIdToNull(trainer);
+                        unit.Trainers.Save();
+                    }
+                }
+
+                if (subject != null)
+                {
+                    unit.Subjects.Delete(subject);
+                    unit.Subjects.Save();
+                    ShowAlert($"Subject with id {id} has been successfully deleted");
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
 
         public void GetTrainersToViewBag()

@@ -11,5 +11,7 @@ namespace RepositoryServices.Core.Repositories
     {
         IEnumerable<Trainer> GetAllWithSubject();
         Trainer GetByIdWithSubject(object id);
+        IEnumerable<Trainer> GetBySubjectId(object id);
+        void SetSubjectIdToNull(Trainer trainer);
     }
 }

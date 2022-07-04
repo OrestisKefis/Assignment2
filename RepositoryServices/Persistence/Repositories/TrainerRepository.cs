@@ -30,5 +30,20 @@ namespace RepositoryServices.Persistence.Repositories
                .Include(t => t.Subject)
                .FirstOrDefault(t => t.TrainerId == (int)id);
         }
+
+        public IEnumerable<Trainer> GetBySubjectId(object id)
+        {
+            var trainers = table.ToList();
+            var obj = from trainer in trainers
+                      where trainer.SubjectId == (int)id
+                      select trainer;
+
+            return obj;
+        }
+
+        public void SetSubjectIdToNull(Trainer trainer)
+        {
+            trainer.SubjectId = null;
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿@model  IEnumerable<Entities.Trainer>
-
+﻿@model IEnumerable<Entities.Trainer>
 
 <style>
     td img {
@@ -53,7 +52,7 @@
                     <td>@trainer.FirstName</td>
                     <td>@trainer.LastName</td>
                     <td>@trainer.DateHired</td>
-                    <td>@(trainer.Subject?.Title)</td>
+                    <td>@(trainer.Subject != null ? trainer.Subject?.Title : "No Subject assigned yet")</td>
                     <td>
                         <a class="btn btn-primary" href="/Trainer/Details?id=@trainer.TrainerId">Details</a>
                         <a class="btn btn-success" href="/Trainer/Edit?id=@trainer.TrainerId">Edit</a>
@@ -66,6 +65,7 @@
             }
         </tbody>
     </table>
+
 </div>
 
 <div>

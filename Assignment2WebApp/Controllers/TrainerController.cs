@@ -21,15 +21,17 @@ namespace Assignment2WebApp.Controllers
         }
 
         // GET: Trainer
-        public ActionResult Index()
+        public ActionResult Index(int? psize, int? pnumber)
         {
             var trainers = unit.Trainers.GetAllWithSubject();
-            if (trainers == null)
+            if (trainers != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+                return View(trainers);
             }
 
-            return View(trainers);
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
         }
 
         public ActionResult Details(int? id)

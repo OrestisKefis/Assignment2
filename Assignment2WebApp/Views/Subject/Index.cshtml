@@ -32,8 +32,26 @@
                     <td>@subject.SubjectId</td>
                     <td>@subject.Title</td>
                     <td>
-                        <a class="btn btn-success" href="/Subject/Edit?id=@subject.SubjectId">Edit</a>
-                        <a class="btn btn-danger" href="#">Delete</a>
+                        <div class="row align-items-end">
+                            
+                            <div class="form-group col-5 col-md-2 ">
+
+                                <div class="form-group">
+                                    <a class="btn btn-success" href="/Subject/Edit?id=@subject.SubjectId">Edit</a>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-5 col-md-2">
+
+                                <form method="post" action="/Subject/Delete">
+                                    <input type="hidden" name="id" value="@subject.SubjectId" />
+                                    <input class="btn btn-danger" type="submit" value="Delete" />
+                                </form>
+
+                            </div>
+
+                        </div>
                     </td>
                 </tr>
             }
